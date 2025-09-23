@@ -15,6 +15,7 @@ Le tecnologie utilizzate per questo caso di studio sono:
 - Framework: Spring Boot 3.0.0
 - Thymeleaf
 - HTML
+- Javascript
 
 ## Funzionamento
 - Homepage: L'utente accede alla homepage mediante l'url "localhost:8080/login"
