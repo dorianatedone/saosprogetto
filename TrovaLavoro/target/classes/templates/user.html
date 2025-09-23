@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Info</title>
+</head>
+<body>
+    <h2>Benvenuto, <span th:text="${name}">Nome</span>!</h2>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Annunci di Lavoro</title>
+    <style>
+        :root { --radius: 16px }
+
+        * { box-sizing: border-box }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+            background: #f6f7fb;
+            color: #0f172a
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px }
+
+        header h1 { margin: 0 0 6px }
+        header p { margin: 0; color: #64748b }
+
+        .grid {
+            display: grid;
+            grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px; margin-top: 16px
+        }
+
+        .card {
+            background: #fff; border: 1px solid #e5e7eb; border-radius: var(--radius);
+            padding: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, .05)
+        }
+
+        .card h2 { font-size: 18px; margin: 0 0 6px }
+        .muted { color: #64748b }
+
+        .row { display: flex; align-items: center; justify-content: space-between; gap: 8px }
+
+        .badge {
+            display: inline-block; background: #eef2ff; color: #3730a3;
+            padding: 4px 10px; border-radius: 999px; font-size: 12px
+        }
+
+        .salary { font-weight: 600; margin: 8px 0 }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 }
+        .tag { background: #f1f5f9; color: #0f172a; padding: 4px 8px; border-radius: 999px; font-size: 12px }
+
+        details { margin-top: 8px }
+        summary { cursor: pointer }
+
+        footer { margin: 24px 0; color: #64748b }
+
+        /* styles per user welcome */
+        #user-welcome { margin-top: 12px }
+        #user-welcome p { margin: 6px 0; color: #0f172a }
+        #user-welcome .logout-btn {
+            background: #ef4444; border: none; color: #fff; padding: 6px 10px;
+            border-radius: 6px; cursor: pointer; margin-left: 8px
+        }
+
+        /* NEW: stile semplice per il messaggio di candidatura */
+        #apply-message {
+            display:none; margin-top:12px; padding:12px 14px; border-radius:10px;
+            background:#ecfdf5; color:#065f46; border:1px solid #bbf7d0;
+        }
+    </style>
+</head>
+<body>
+<header class="container">
+    <h1>Annunci di Lavoro</h1>
+    <p>In questa pagina sono disponibili annunci di lavoro con dettagli espandibili.</p>
+    <nav aria-label="Sezioni">
+        <a href="#recenti">Recenti</a> · <a href="#fulltime">Full-time</a> · <a href="#remote">Remote</a>
+    </nav>
+
+    <!-- NEW: box messaggio statico che verrà mostrato al click su "Candidati" -->
+    <p id="apply-message" role="status" aria-live="polite">
+        Candidatura ricevuta correttamente!
+        <strong><span th:text="${name}">Nome</span></strong>
+        riceverai al più presto un riscontro alla mail <strong><span th:text="${email}"></span></strong>!
+    </p>
+    <!-- Area in cui verrà mostrato il benvenuto all'utente loggato -->
+    <!-- <div id="user-welcome" aria-live="polite"></div> -->
+</header>
+
+<main class="container">
+    <section id="recenti" aria-labelledby="h-recenti">
+        <h2 id="h-recenti" class="muted">Annunci recenti</h2>
+        <div class="grid">
+
+            <!-- Job 1 -->
+            <article class="card" itemscope itemtype="https://schema.org/JobPosting">
+                <div class="row">
+                    <h2 itemprop="title">Frontend Engineer</h2>
+                    <span class="badge" itemprop="employmentType">Full-time</span>
+                </div>
+                <p class="muted"><span itemprop="hiringOrganization" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">PixelWorks</span></span> ·
+                    <span itemprop="jobLocation" itemscope itemtype="https://schema.org/Place"><span itemprop="addressLocality">Milano</span>, <span itemprop="addressCountry">IT</span></span></p>
+                <p class="salary">
+                  <span itemprop="baseSalary" itemscope itemtype="https://schema.org/MonetaryAmount">
+                    <meta itemprop="currency" content="EUR"/>
+                    <span itemprop="minValue" content="38000">38.000</span> –
+                    <span itemprop="maxValue" content="52000">52.000</span> €
+                  </span>
+                </p>
+                <p class="muted">Pubblicato:
+                    <time itemprop="datePosted" datetime="2025-08-21">21 ago 2025</time>
+                </p>
+                <p class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Tailwind</span></p>
+                <details>
+                    <summary>Dettagli &amp; candidatura</summary>
+                    <p itemprop="description">Sviluppo UI moderne, design system e performance.</p>
+                    <p><a href="#" aria-label="Candidati a Frontend Engineer">Candidati</a></p>
+                </details>
+            </article>
+
+            <!-- Job 2 -->
+            <article class="card" itemscope itemtype="https://schema.org/JobPosting">
+                <div class="row">
+                    <h2 itemprop="title">Backend Developer</h2>
+                    <span class="badge" itemprop="employmentType">Full-time</span>
+                </div>
+                <p class="muted"><span itemprop="hiringOrganization" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">DataForge</span></span> ·
+                    <span itemprop="jobLocation" itemscope itemtype="https://schema.org/Place"><span itemprop="addressLocality">Roma</span>, <span itemprop="addressCountry">IT</span></span></p>
+                <p class="salary">
+                  <span itemprop="baseSalary" itemscope itemtype="https://schema.org/MonetaryAmount">
+                    <meta itemprop="currency" content="EUR"/>
+                    <span itemprop="minValue" content="42000">42.000</span> –
+                    <span itemprop="maxValue" content="60000">60.000</span> €
+                  </span>
+                </p>
+                <p class="muted">Pubblicato:
+                    <time itemprop="datePosted" datetime="2025-08-28">28 ago 2025</time>
+                </p>
+                <p class="tags"><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span></p>
+                <details>
+                    <summary>Dettagli &amp; candidatura</summary>
+                    <p itemprop="description">API scalabili, microservizi e integrazioni.</p>
+                    <p><a href="#">Candidati</a></p>
+                </details>
+            </article>
+
+            <!-- Job 3 -->
+            <article class="card" itemscope itemtype="https://schema.org/JobPosting">
+                <div class="row">
+                    <h2 itemprop="title">UX/UI Designer</h2>
+                    <span class="badge" itemprop="employmentType">Contract</span>
+                </div>
+                <p class="muted"><span itemprop="hiringOrganization" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">Mosaic Studio</span></span> ·
+                    <span itemprop="jobLocation" itemscope itemtype="https://schema.org/Place"><span itemprop="addressLocality">Torino</span>, <span itemprop="addressCountry">IT</span></span></p>
+                <p class="salary">
+                  <span itemprop="baseSalary" itemscope itemtype="https://schema.org/MonetaryAmount">
+                    <meta itemprop="currency" content="EUR"/>
+                    <span itemprop="minValue" content="28000">28.000</span> –
+                    <span itemprop="maxValue" content="40000">40.000</span> €
+                  </span>
+                </p>
+                <p class="muted">Pubblicato:
+                    <time itemprop="datePosted" datetime="2025-08-26">26 ago 2025</time>
+                </p>
+                <p class="tags"><span class="tag">Figma</span><span class="tag">UX</span><span class="tag">UI</span></p>
+                <details>
+                    <summary>Dettagli &amp; candidatura</summary>
+                    <p itemprop="description">Ricerca utenti, wireframe, prototipi.</p>
+                    <p><a href="#">Candidati</a></p>
+                </details>
+            </article>
+
+            <!-- Job 4 -->
+            <article class="card" itemscope itemtype="https://schema.org/JobPosting">
+                <div class="row">
+                    <h2 itemprop="title">DevOps Engineer</h2>
+                    <span class="badge" itemprop="employmentType">Full-time</span>
+                </div>
+                <p class="muted"><span itemprop="hiringOrganization" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">Cloudly</span></span> ·
+                    <span itemprop="jobLocation" itemscope itemtype="https://schema.org/Place"><span itemprop="addressLocality">Remote</span>, <span itemprop="addressCountry">IT</span></span></p>
+                <p class="salary">
+                  <span itemprop="baseSalary" itemscope itemtype="https://schema.org/MonetaryAmount">
+                    <meta itemprop="currency" content="EUR"/>
+                    <span itemprop="minValue" content="50000">50.000</span> –
+                    <span itemprop="maxValue" content="75000">75.000</span> €
+                  </span>
+                </p>
+                <p class="muted">Pubblicato:
+                    <time itemprop="datePosted" datetime="2025-08-31">31 ago 2025</time>
+                </p>
+                <p class="tags"><span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span></p>
+                <details>
+                    <summary>Dettagli &amp; candidatura</summary>
+                    <p itemprop="description">CI/CD, IaC e osservabilità.</p>
+                    <p><a href="#">Candidati</a></p>
+                </details>
+            </article>
+
+            <!-- Job 5 -->
+            <article class="card" itemscope itemtype="https://schema.org/JobPosting">
+                <div class="row">
+                    <h2 itemprop="title">Data Analyst</h2>
+                    <span class="badge" itemprop="employmentType">Part-time</span>
+                </div>
+                <p class="muted"><span itemprop="hiringOrganization" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">InsightLab</span></span> ·
+                    <span itemprop="jobLocation" itemscope itemtype="https://schema.org/Place"><span itemprop="addressLocality">Bologna</span>, <span itemprop="addressCountry">IT</span></span></p>
+                <p class="salary">
+                  <span itemprop="baseSalary" itemscope itemtype="https://schema.org/MonetaryAmount">
+                    <meta itemprop="currency" content="EUR"/>
+                    <span itemprop="minValue" content="25000">25.000</span> –
+                    <span itemprop="maxValue" content="32000">32.000</span> €
+                  </span>
+                </p>
+                <p class="muted">Pubblicato:
+                    <time itemprop="datePosted" datetime="2025-08-30">30 ago 2025</time>
+                </p>
+                <p class="tags"><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">PowerBI</span></p>
+                <details>
+                    <summary>Dettagli &amp; candidatura</summary>
+                    <p itemprop="description">Reportistica, dashboard e analisi KPI.</p>
+                    <p><a href="#">Candidati</a></p>
+                </details>
+            </article>
+
+            <!-- Job 6 -->
+            <article class="card" itemscope itemtype="https://schema.org/JobPosting">
+                <div class="row">
+                    <h2 itemprop="title">Project Manager</h2>
+                    <span class="badge" itemprop="employmentType">Contract</span>
+                </div>
+                <p class="muted"><span itemprop="hiringOrganization" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">BridgeOps</span></span> ·
+                    <span itemprop="jobLocation" itemscope itemtype="https://schema.org/Place"><span itemprop="addressLocality">Verona</span>, <span itemprop="addressCountry">IT</span></span>
+                </p>
+                <p class="salary">
+                  <span itemprop="baseSalary" itemscope itemtype="https://schema.org/MonetaryAmount">
+                    <meta itemprop="currency" content="EUR"/>
+                    <span itemprop="minValue" content="30000">30.000</span> –
+                    <span itemprop="maxValue" content="45000">45.000</span> €
+                  </span>
+                </p>
+                <p class="muted">Pubblicato:
+                    <time itemprop="datePosted" datetime="2025-08-24">24 ago 2025</time>
+                </p>
+                <p class="tags"><span class="tag">Agile</span><span class="tag">Scrum</span><span class="tag">Stakeholders</span></p>
+                <details>
+                    <summary>Dettagli &amp; candidatura</summary>
+                    <p itemprop="description">Pianificazione, sprint e comunicazione con clienti.</p>
+                    <p><a href="#">Candidati</a></p>
+                </details>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="fulltime" aria-labelledby="h-full">
+        <h2 id="h-full" class="muted">Selezione Full-time</h2>
+        <p class="muted">Esempio di sezione statica per una categoria specifica.</p>
+    </section>
+
+    <section id="remote" aria-labelledby="h-remote">
+        <h2 id="h-remote" class="muted">Posizioni Remote</h2>
+        <p class="muted">Collegamenti interni per navigare tra sezioni senza JavaScript.</p>
+    </section>
+</main>
+
+<footer class="container">
+    <p class="muted">© 2025 Bacheca Annunci.</p>
+</footer>
+
+<script th:inline="javascript">
+    (function () {
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        const welcomeEl = document.getElementById('user-welcome');
+        if (!welcomeEl) return;
+
+        try {
+            let raw = localStorage.getItem('fb_user');
+
+            if (!raw) {
+                raw = [[${fb_user}]];
+
+                if (raw) {
+                    localStorage.setItem('fb_user', raw);
+                } else {
+                    welcomeEl.innerHTML = '<p class="muted">Autenticazione assente. <a href="/login">Accedi con Facebook</a></p>';
+                    console.log("test: " + document.cookie.split('; '))
+                    return;
+                }
+            }
+
+            var user = JSON.parse(raw);
+            var name = user.name || '';
+            if (!name) {
+                welcomeEl.innerHTML = '<p class="muted">Utente sconosciuto</p>';
+                return;
+            }
+            var parts = name.trim().split(/\s+/);
+            var display = parts.length >= 2 ? escapeHtml(parts[0] + ' ' + parts.slice(1).join(' ')) : escapeHtml(name);
+
+            welcomeEl.innerHTML = '<p>Benvenuto <strong>' + display + '</strong>' +
+                ' <button id="logoutBtn" class="logout-btn" aria-label="Esci">Esci</button></p>';
+
+            var btn = document.getElementById('logoutBtn');
+            if (btn) {
+                btn.addEventListener('click', function () {
+                    try {
+                        localStorage.removeItem('fb_user');
+                        localStorage.removeItem('fb_token');
+                    } catch (e) {}
+                    window.location.href = '/';
+                });
+            }
+        } catch (e) {
+            console.warn('Errore nel recupero dati utente da localStorage', e);
+            if (welcomeEl) {
+              welcomeEl.innerHTML = '<p class="muted">Errore nell\'accesso ai dati utente</p>';
+            }
+        }
+    })();
+</script>
+
+<!-- NEW: script che mostra il messaggio quando si clicca su "Candidati" -->
+<script>
+  (function () {
+    var msg = document.getElementById('apply-message');
+    if (!msg) return;
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a');
+      if (!a) return;
+
+      // controlla testo visibile del link
+      if (a.textContent && a.textContent.trim().toLowerCase() === 'candidati') {
+        e.preventDefault();           // evita il salto a #
+        msg.style.display = 'block';  // mostra il messaggio statico
+        msg.setAttribute('aria-hidden', 'false');
+        msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  })();
+</script>
+    
+</body>
+</html>
+

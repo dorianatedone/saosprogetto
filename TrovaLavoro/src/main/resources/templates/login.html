@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accedi</title>
+  <style>
+    :root{
+      --bg: #f6f7fb;        /* sfondo neutro chiaro */
+      --card-bg: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #1877f2;   /* Facebook */
+      --primary-600: #166fe0;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 500 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans";
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card{
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.05);
+    }
+    .title{ margin: 0 0 6px; font-size: 24px; }
+    .subtitle{ margin: 0 0 16px; color: var(--muted); font-weight: 400; font-size: 15px; }
+    .btn{
+      display: inline-block;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      color: #fff;
+      background: var(--primary);
+      border: 1px solid transparent;
+      transition: background .15s ease, transform .06s ease;
+    }
+    .btn:hover{ background: var(--primary-600); }
+    .btn:active{ transform: translateY(1px); }
+    .meta{
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+    .alerts{ margin-top: 14px; display: grid; gap: 8px; }
+    .alert{
+      padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 14px;
+      background: #f9fafb; color: #111827;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0f1115;
+        --card-bg: #17191f;
+        --text: #e5e7eb;
+        --muted: #9aa3b2;
+        --border: #2a2f37;
+      }
+      .alert{ background:#1f232b; color:#e5e7eb; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="login-title">
+    <h1 id="login-title" class="title">Benvenuto/a 👋</h1>
+    <p class="subtitle">Accedi per continuare. Puoi usare il tuo account Facebook.</p>
+
+    <a class="btn" th:href="@{/oauth2/authorization/facebook}" role="button" aria-label="Accedi con Facebook">
+      Accedi con Facebook
+    </a>
+
+    <p class="meta">
+      Continuando accetti i nostri <a href="#" style="color:inherit;text-decoration:underline;">Termini</a> e la
+      <a href="#" style="color:inherit;text-decoration:underline;">Privacy Policy</a>.
+    </p>
+
+    <!-- Messaggi da Thymeleaf (semplici) -->
+    
+  </main>
+</body>
+</html>
+
