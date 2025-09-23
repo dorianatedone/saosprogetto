@@ -223,6 +223,30 @@ public class MainController {
 }
 ```
 
+@Controller indica che è un controller MVC di Spring: riceve richieste HTTP e restituisce viste (pagine HTML tramite Thymeleaf)
+
+Il metodo login() gestisce le richieste GET a /login e restituisce la stringa "login". A questo punto Spring cercherà un template login.html nella cartella resources/templates mostrandola.
+
+Il metodo user() gestisce le richieste GET a /user e riceve:
+
+  - Model model: per passare i dati alla vista (pagina HTML)
+  
+  - OAuth2AuthenticationToken authentication: contiene le informazioni sull'utente autenticato tramite OAuth2 (Facebook)
+  
+All'interno del metodo abbiamo:
+
+  - OAuth2User user = authentication.getPrincipal(); : che recupera l'utente autenticato
+  
+  - Aggiunge a Model alcuni attributi presi dal profilo dell'utente OAuth2:
+  
+    - model.addAttribute("name", user.getAttribute("name"));
+    
+    - model.addAttribute("email", user.getAttribute("email"));
+    
+  così in Thymeleaf può usare ${name}, ${email}.
+  
+Restituisce "user", quindi Spring mostrerà la pagina user.html
+
 ## File in HTML con Thymeleaf
 Thymeleaf è un motore di template Java, cioè una libreria che permette di collegare i dati del backend (nel nostro caso Spring Boot) con il fontend HTML.
 Fa da "ponte" tra Java e HTML, prendendo i dati dall'applicazione e inserendoli in HTML in modo dinamico. 
